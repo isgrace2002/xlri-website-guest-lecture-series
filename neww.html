@@ -1,0 +1,34 @@
+<h1>Authors</h1>
+<ul id="authors"></ul>
+
+<script>
+  const ul = document.getElementById('authors');
+  const list = document.createDocumentFragment();
+  const url = 'http://localhost/rest-api-crud-using-php/json.php';
+
+  fetch(url)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let authors = data;
+
+      authors.map(function(author) {
+        let li = document.createElement('li');
+        let batch = document.createElement('h2');
+        let title = document.createElement('span');
+
+        batch.innerHTML = `${author.batch}`;
+        title.innerHTML = `${author.title}`;
+
+        li.appendChild(batch);
+        li.appendChild(title);
+        list.appendChild(li);
+      });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+  ul.appendChild(list);
+</script>
